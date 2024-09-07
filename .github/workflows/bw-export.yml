@@ -1,0 +1,29 @@
+name: BW Export
+
+on:
+  workflow_dispatch:
+
+env:
+  BW_SERVER: ${{ secrets.BW_SERVER }}
+  BW_CLIENTID: ${{ secrets.BW_CLIENTID }}
+  BW_CLIENTSECRET : ${{ secrets.BW_CLIENTSECRET }}
+  BW_PASSWORD: ${{ secrets.BW_PASSWORD }}
+  DROPBOX_APP_KEY: ${{ secrets.DROPBOX_APP_KEY }}
+  DROPBOX_APP_SECRET: ${{ secrets.DROPBOX_APP_SECRET }}
+  DROPBOX_REFRESH_TOKEN: ${{ secrets.DROPBOX_REFRESH_TOKEN }}
+
+jobs:
+  bw_export:
+    runs-on: ubuntu-latest
+    name: Export Vault
+    steps:
+      - uses: actions/checkout@v4
+      - uses: szenius/set-timezone@v2.0
+        with:
+          timezoneLinux: "Asia/Kolkata"
+      - name: Install Bitwarden CLI
+        run: |
+          sudo npm install -g @bitwarden/cli
+      - name: Run Shell Script
+        id: shell_script_run
+        run: bash ./bw-export.sh
