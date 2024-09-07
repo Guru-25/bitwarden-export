@@ -22,7 +22,7 @@ curl -s "https://raw.githubusercontent.com/andreafabrizi/Dropbox-Uploader/master
 chmod +x dropbox_uploader.sh
 
 # Upload the file to Dropbox
-./dropbox_uploader.sh upload "${file_name}.json" "${file_name}.json"
+./dropbox_uploader.sh upload "${file_name}" "${file_name}"
 
 # Delete old export from Dropbox
 ./dropbox_uploader.sh delete "$(date +"%Y-%m-%d" --date="7 days ago").json"
