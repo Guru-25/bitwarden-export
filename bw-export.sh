@@ -27,7 +27,7 @@ chmod +x dropbox_uploader.sh
 # Delete old export from Dropbox
 ./dropbox_uploader.sh delete "$(date +"%Y-%m-%d" --date="7 days ago").json"
 
-# Clean up local files
+# Clean up local file
 rm "${file_name}"
 
 # Logout Bitwarden
