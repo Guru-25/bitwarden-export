@@ -6,7 +6,7 @@ on:
 env:
   BW_SERVER: ${{ secrets.BW_SERVER }}
   BW_CLIENTID: ${{ secrets.BW_CLIENTID }}
-  BW_CLIENTSECRET : ${{ secrets.BW_CLIENTSECRET }}
+  BW_CLIENTSECRET: ${{ secrets.BW_CLIENTSECRET }}
   BW_PASSWORD: ${{ secrets.BW_PASSWORD }}
   DROPBOX_APP_KEY: ${{ secrets.DROPBOX_APP_KEY }}
   DROPBOX_APP_SECRET: ${{ secrets.DROPBOX_APP_SECRET }}
@@ -15,11 +15,15 @@ env:
 jobs:
   bw_export:
     runs-on: ubuntu-latest
-    name: Export Vault
+
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
       - name: Install Bitwarden CLI
         run: |
           sudo npm install -g @bitwarden/cli
+
       - name: Run Shell Script
         id: shell_script_run
         run: bash ./bw-export.sh
