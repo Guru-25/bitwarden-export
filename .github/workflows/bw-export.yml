@@ -8,9 +8,9 @@ env:
   BW_CLIENTID: ${{ secrets.BW_CLIENTID }}
   BW_CLIENTSECRET: ${{ secrets.BW_CLIENTSECRET }}
   BW_PASSWORD: ${{ secrets.BW_PASSWORD }}
-  DROPBOX_APP_KEY: ${{ secrets.DROPBOX_APP_KEY }}
-  DROPBOX_APP_SECRET: ${{ secrets.DROPBOX_APP_SECRET }}
-  DROPBOX_REFRESH_TOKEN: ${{ secrets.DROPBOX_REFRESH_TOKEN }}
+  WEBDAV_URL: ${{ secrets.WEBDAV_URL }}
+  WEBDAV_USERNAME: ${{ secrets.WEBDAV_USERNAME }}
+  WEBDAV_PASSWORD: ${{ secrets.WEBDAV_PASSWORD }}
 
 jobs:
   bw_export:

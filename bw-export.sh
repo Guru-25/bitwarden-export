@@ -11,24 +11,28 @@ export BW_SESSION=$(bw unlock --passwordenv BW_PASSWORD --raw)
 # Export the vault
 bw export --format encrypted_json --password "${BW_PASSWORD}" --output "${file_name}"
 
-# Dropbox Uploader configuration
-echo "CONFIGFILE_VERSION=2.0" > ~/.dropbox_uploader
-echo "OAUTH_APP_KEY=${DROPBOX_APP_KEY}" >> ~/.dropbox_uploader
-echo "OAUTH_APP_SECRET=${DROPBOX_APP_SECRET}" >> ~/.dropbox_uploader
-echo "OAUTH_REFRESH_TOKEN=${DROPBOX_REFRESH_TOKEN}" >> ~/.dropbox_uploader
+# Upload the file to WebDAV
+curl -T "${file_name}" -u "${WEBDAV_USERNAME}:${WEBDAV_PASSWORD}" "${WEBDAV_URL}${file_name}"
+if [ $? -eq 0 ]; then
+    echo "Backup uploaded successfully to WebDAV."
+else
+    echo "Failed to upload backup to WebDAV."
+    exit 1
+fi
 
-# Download Dropbox Uploader script
-curl -s "https://raw.githubusercontent.com/andreafabrizi/Dropbox-Uploader/master/dropbox_uploader.sh" -o dropbox_uploader.sh
-chmod +x dropbox_uploader.sh
-
-# Upload the file to Dropbox
-./dropbox_uploader.sh upload "${file_name}" "${file_name}"
-
-# Delete old export from Dropbox
-./dropbox_uploader.sh delete "$(date +"%Y-%m-%d" --date="7 days ago").json"
+# Delete old export from WebDAV (7 days ago)
+old_file_name="$(date +"%Y-%m-%d" --date="7 days ago").json"
+curl -X DELETE -u "${WEBDAV_USERNAME}:${WEBDAV_PASSWORD}" "${WEBDAV_URL}${old_file_name}"
+if [ $? -eq 0 ]; then
+    echo "Old backup deleted successfully from WebDAV."
+else
+    echo "Failed to delete old backup from WebDAV (file may not exist)."
+fi
 
 # Clean up local file
 rm "${file_name}"
+echo "Local backup file removed."
 
 # Logout Bitwarden
 bw logout
+echo "Bitwarden logged out."

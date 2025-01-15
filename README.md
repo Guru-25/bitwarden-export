@@ -2,7 +2,7 @@
 Export Bitwarden Vault
 
 ## What it does?
-Export Bitwarden vault to your Dropbox
+Export Bitwarden vault to your WebDAV
 
 ## Action secrets
 Assign secrets in Settings -> Secrets and variables -> Actions -> New repository secret
@@ -13,6 +13,6 @@ Assign secrets in Settings -> Secrets and variables -> Actions -> New repository
 | `BW_CLIENTID`           |
 | `BW_CLIENTSECRET`       |
 | `BW_PASSWORD`           |
-| `DROPBOX_APP_KEY`       | 
-| `DROPBOX_APP_SECRET`    |
-| `DROPBOX_REFRESH_TOKEN` |
+| `WEBDAV_URL`            | 
+| `WEBDAV_USERNAME`       |
+| `WEBDAV_PASSWORD`       |
