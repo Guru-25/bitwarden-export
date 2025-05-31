@@ -22,7 +22,7 @@ jobs:
 
       - name: Install Bitwarden CLI
         run: |
-          sudo npm install -g @bitwarden/cli
+          sudo npm install -g semver @bitwarden/cli
 
       - name: Run Shell Script
         id: shell_script_run
